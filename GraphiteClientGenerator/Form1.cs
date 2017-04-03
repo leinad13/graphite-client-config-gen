@@ -20,9 +20,9 @@ namespace GraphiteClientGenerator
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {           
-            
-
+        {
+            // Set MinSize of Right Panel
+            splitContainer1.Panel2MinSize = 131;
         }
 
         private void LoadPerformanceCounters(string hostname)
@@ -157,5 +157,11 @@ namespace GraphiteClientGenerator
             }
         }
 
+        private void btnSaveConfig_Click(object sender, EventArgs e)
+        {
+            // get destination path to save to
+            string destpath = txtConfigPath.Text;
+            
+        }
     }
 }
