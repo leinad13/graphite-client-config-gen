@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace GraphiteClientGenerator
 {
@@ -23,6 +25,8 @@ namespace GraphiteClientGenerator
         {
             // Set MinSize of Right Panel
             splitContainer1.Panel2MinSize = 131;
+            // Set default choice in graphite transport option combobox
+            cmbGraphiteTransport.SelectedIndex = 0;
         }
 
         private void LoadPerformanceCounters(string hostname)
@@ -159,9 +163,98 @@ namespace GraphiteClientGenerator
 
         private void btnSaveConfig_Click(object sender, EventArgs e)
         {
-            // get destination path to save to
-            string destpath = txtConfigPath.Text;
+            string output_config_address;
+            string output_config_port;
+            string output_config_path;
+            string output_config_transport;
             
+            // Check Output Options
+            try
+            {
+                // destination path to save to
+                output_config_path = txtConfigPath.Text;
+                // graphite server address
+                output_config_address = txtGraphiteAddress.Text;
+                // graphite server port
+                output_config_port = int.Parse(txtGraphitePort.Text).ToString();
+                // graphite server transport protocol
+                output_config_transport = cmbGraphiteTransport.SelectedItem.ToString();
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Problem with Output Options", MessageBoxButtons.OK);
+                return;
+            }
+            
+
+            // rootnode = configuration
+            XmlDocument xmlDoc = new XmlDocument();
+            XmlNode rootnode = xmlDoc.CreateElement("configuration");
+            xmlDoc.AppendChild(rootnode);
+
+            // configSections
+            XmlNode configsectionNode = xmlDoc.CreateElement("configSections");
+            // section
+            XmlNode graphite = xmlDoc.CreateElement("section");
+            XmlAttribute graphite_name = xmlDoc.CreateAttribute("name");
+            graphite_name.Value = "graphite";
+            XmlAttribute graphite_type = xmlDoc.CreateAttribute("type");
+            graphite_type.Value = "Graphite.Configuration.GraphiteConfiguration, Graphite";
+            graphite.Attributes.Append(graphite_name);
+            graphite.Attributes.Append(graphite_type);
+            configsectionNode.AppendChild(graphite);
+            //section
+            XmlNode graphite_system = xmlDoc.CreateElement("section");
+            XmlAttribute graphite_system_name = xmlDoc.CreateAttribute("name");
+            graphite_system_name.Value = "graphite.system";
+            XmlAttribute graphite_system_type = xmlDoc.CreateAttribute("type");
+            graphite_system_type.Value = "Graphite.System.Configuration.GraphiteSystemConfiguration, PerfCounterMonitor";
+            graphite_system.Attributes.Append(graphite_system_name);
+            graphite_system.Attributes.Append(graphite_system_type);
+            // configSectionsEnd
+            configsectionNode.AppendChild(graphite_system);
+            rootnode.AppendChild(configsectionNode);
+
+            XmlNode maingraphite = xmlDoc.CreateElement("graphite", "http://github.com/peschuster/Graphite/Configuration");
+            XmlNode graphite_config = xmlDoc.CreateElement("graphite", "http://github.com/peschuster/Graphite/Configuration");
+            XmlAttribute graphite_config_address = xmlDoc.CreateAttribute("address");
+            graphite_config_address.Value = output_config_address;
+            graphite_config.Attributes.Append(graphite_config_address);
+            XmlAttribute graphite_config_port = xmlDoc.CreateAttribute("port");
+            graphite_config_port.Value = output_config_port;
+            graphite_config.Attributes.Append(graphite_config_port);
+            XmlAttribute graphite_config_transport = xmlDoc.CreateAttribute("transport");
+            graphite_config_transport.Value = output_config_transport;
+            graphite_config.Attributes.Append(graphite_config_transport);
+            maingraphite.AppendChild(graphite_config);
+            rootnode.AppendChild(maingraphite);
+
+            XmlNode maingraphite_system = xmlDoc.CreateElement("graphite.system", "http://github.com/peschuster/Graphite/Configuration");
+            XmlNode counters = xmlDoc.CreateElement("counters", "http://github.com/peschuster/Graphite/Configuration");
+            XmlNode clear = xmlDoc.CreateElement("clear","http://github.com/peschuster/Graphite/Configuration");
+            counters.AppendChild(clear);
+
+            List<TreeNode> nodes = new List<TreeNode>();
+
+            foreach (TreeNode node in trvPerfs.Nodes)
+            {
+                if (node.Checked)
+                {
+                    nodes.Add(node);
+                    XmlNode childnode = xmlDoc.CreateElement("add", "http://github.com/peschuster/Graphite/Configuration");
+                    XmlAttribute attr = xmlDoc.CreateAttribute("key");
+                    attr.Value = node.Text;
+                    childnode.Attributes.Append(attr);
+                    counters.AppendChild(childnode);
+                }
+            }
+
+            maingraphite_system.AppendChild(counters);
+            rootnode.AppendChild(maingraphite_system);
+
+            // Save Out XML
+            xmlDoc.Save(output_config_path);
+
         }
     }
 }
