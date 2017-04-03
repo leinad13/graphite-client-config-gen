@@ -107,7 +107,7 @@ namespace GraphiteClientGenerator
             {
                 if (e.Node.Nodes.Count > 0)
                 {
-                    this.CheckAllChildNodes(e.Node, e.Node.Checked);
+                    this.CheckAllChildNodes(e.Node, e.Node.Checked)
                 }
             }
         }
