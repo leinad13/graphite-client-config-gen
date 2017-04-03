@@ -99,7 +99,7 @@ namespace GraphiteClientGenerator
                     }
                 } catch (Exception ex)
                 {
-                    // Some Performance Counters throw an error when trying to enumerate instances
+                    // Some Performance Counters throw an error when trying to enumerate instances, this captures and suppresses it
                 }
                 PerformanceCounter[] counters = cat.GetCounters("");
                 rootnode.Nodes.Add(node);
@@ -110,9 +110,72 @@ namespace GraphiteClientGenerator
             trvPerfs.Nodes[0].SetIsCheckBoxVisible(false);
         }
 
+        private void LoadPerformanceCounters_Level1(string hostname)
+        {
+            // Check Host is alive / online
+            try
+            {
+                // Get IP Address of System
+                System.Net.IPAddress address = System.Net.Dns.GetHostEntry(hostname).AddressList.First();
+
+                // Ping Object
+                Ping ping = new Ping();
+                // Ping buffer - 32 byte buffer (create empty)
+                byte[] buffer = new byte[32];
+                // Ping Options
+                PingOptions pingOptions = new PingOptions(128, true);
+
+                // Ping Host 4 times
+                for (int i = 0; i < 4; i++)
+                {
+                    // PingReply Object
+                    PingReply pingReply = ping.Send(address, 1000, buffer, pingOptions);
+                    //make sure we dont have a null reply
+                    if (!(pingReply == null))
+                    {
+                        switch (pingReply.Status)
+                        {
+                            case IPStatus.Success:
+                                break;
+                            case IPStatus.TimedOut:
+                                throw new PingException("Timed Out");
+                            default:
+                                throw new PingException("Ping Failed");
+                        }
+                    }
+                }
+            }
+            catch (PingException ex)
+            {
+                MessageBox.Show(ex.Message, "Problem Connecting to " + hostname, MessageBoxButtons.OK);
+                return;
+            }
+
+            // Get Hostname to use for root tree node
+            TreeNode rootnode = new TreeNode(hostname);
+
+            // Get Performance Counter Categories
+            List<PerformanceCounterCategory> categories = PerformanceCounterCategory.GetCategories(hostname).OrderBy(category => category.CategoryName).ToList();
+
+            foreach (PerformanceCounterCategory cat in categories)
+            {
+                TreeNode node = new TreeNode(cat.CategoryName);
+                TreeNode child = new TreeNode("dummy");
+                node.Nodes.Add(child);
+
+                PerformanceCounter[] counters = cat.GetCounters("");
+                rootnode.Nodes.Add(node);
+            }
+
+            // Add Nodes to TreeView
+            trvPerfs.Nodes.Add(rootnode);
+            trvPerfs.Nodes[0].SetIsCheckBoxVisible(false);
+        }
+ 
         private void button1_Click(object sender, EventArgs e)
         {
-            LoadPerformanceCounters(txtHostname.Text);
+            //LoadPerformanceCounters(txtHostname.Text);
+            LoadPerformanceCounters_Level1(txtHostname.Text);
         }
 
         private void trvPerfs_AfterCheck(object sender, TreeViewEventArgs e)
@@ -255,6 +318,68 @@ namespace GraphiteClientGenerator
             // Save Out XML
             xmlDoc.Save(output_config_path);
 
+        }
+
+        private void trvPerfs_AfterExpand(object sender, TreeViewEventArgs e)
+        {
+            // Get Node to expand
+            TreeNode node = e.Node;
+
+            if (node.Level != 1)
+            {
+                return;
+            }
+
+            try
+            {
+                // Get IP Address of System
+                System.Net.IPAddress address = System.Net.Dns.GetHostEntry(txtHostname.Text).AddressList.First();
+
+                // Ping Object
+                Ping ping = new Ping();
+                // Ping buffer - 32 byte buffer (create empty)
+                byte[] buffer = new byte[32];
+                // Ping Options
+                PingOptions pingOptions = new PingOptions(128, true);
+
+                // Ping Host 4 times
+                for (int i = 0; i < 4; i++)
+                {
+                    // PingReply Object
+                    PingReply pingReply = ping.Send(address, 1000, buffer, pingOptions);
+                    //make sure we dont have a null reply
+                    if (!(pingReply == null))
+                    {
+                        switch (pingReply.Status)
+                        {
+                            case IPStatus.Success:
+                                break;
+                            case IPStatus.TimedOut:
+                                throw new PingException("Timed Out");
+                            default:
+                                throw new PingException("Ping Failed");
+                        }
+                    }
+                }
+            }
+            catch (PingException ex)
+            {
+                MessageBox.Show(ex.Message, "Problem Connecting to " + txtHostname.Text, MessageBoxButtons.OK);
+                return;
+            }
+
+            // Host is Up (otherwise function has already returned)
+            PerformanceCounterCategory cat = PerformanceCounterCategory.GetCategories(txtHostname.Text).ToList().Single(s => s.CategoryName == node.Text);
+
+            // Remove Existing nodes
+            e.Node.Nodes.Clear();
+
+            foreach (string instance in cat.GetInstanceNames())
+            {
+                TreeNode instanceNode = new TreeNode(instance);
+                e.Node.Nodes.Add(instanceNode);
+            }
+            
         }
     }
 }

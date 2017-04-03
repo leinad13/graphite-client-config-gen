@@ -35,6 +35,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtDefaultInterval = new System.Windows.Forms.TextBox();
             this.grpGraphiteConfig = new System.Windows.Forms.GroupBox();
+            this.cmbGraphiteTransport = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.txtGraphitePort = new System.Windows.Forms.TextBox();
             this.txtGraphiteAddress = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -46,8 +48,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtHostname = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.cmbGraphiteTransport = new System.Windows.Forms.ComboBox();
             this.grpMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -106,6 +106,7 @@
             this.trvPerfs.Size = new System.Drawing.Size(438, 538);
             this.trvPerfs.TabIndex = 0;
             this.trvPerfs.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.trvPerfs_AfterCheck);
+            this.trvPerfs.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.trvPerfs_AfterExpand);
             // 
             // groupBox1
             // 
@@ -153,6 +154,26 @@
             this.grpGraphiteConfig.TabIndex = 1;
             this.grpGraphiteConfig.TabStop = false;
             this.grpGraphiteConfig.Text = "Graphite Config";
+            // 
+            // cmbGraphiteTransport
+            // 
+            this.cmbGraphiteTransport.FormattingEnabled = true;
+            this.cmbGraphiteTransport.Items.AddRange(new object[] {
+            "tcp",
+            "udp"});
+            this.cmbGraphiteTransport.Location = new System.Drawing.Point(10, 130);
+            this.cmbGraphiteTransport.Name = "cmbGraphiteTransport";
+            this.cmbGraphiteTransport.Size = new System.Drawing.Size(107, 21);
+            this.cmbGraphiteTransport.TabIndex = 5;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(7, 113);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(54, 13);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "transport :";
             // 
             // txtGraphitePort
             // 
@@ -261,26 +282,6 @@
             this.txtHostname.Size = new System.Drawing.Size(157, 20);
             this.txtHostname.TabIndex = 1;
             this.txtHostname.Text = "localhost";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(7, 113);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(54, 13);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "transport :";
-            // 
-            // cmbGraphiteTransport
-            // 
-            this.cmbGraphiteTransport.FormattingEnabled = true;
-            this.cmbGraphiteTransport.Items.AddRange(new object[] {
-            "tcp",
-            "udp"});
-            this.cmbGraphiteTransport.Location = new System.Drawing.Point(10, 130);
-            this.cmbGraphiteTransport.Name = "cmbGraphiteTransport";
-            this.cmbGraphiteTransport.Size = new System.Drawing.Size(107, 21);
-            this.cmbGraphiteTransport.TabIndex = 5;
             // 
             // Form1
             // 
