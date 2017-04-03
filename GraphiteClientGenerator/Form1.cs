@@ -224,11 +224,14 @@ namespace GraphiteClientGenerator
                         // Children of instance - counter
                         foreach (TreeNode node2 in node1.Nodes)
                         {
-                            CounterConfig counterConfig = new CounterConfig();
-                            counterConfig.counter = node1.Text;
-                            counterConfig.instance = node1.Parent.Text;
-                            counterConfig.category = node1.Parent.Parent.Text;
-                            counterConfigs.Add(counterConfig);
+                            if ((node2.Tag.ToString() == "counter") && (node2.Checked == true))
+                            {
+                                CounterConfig counterConfig = new CounterConfig();
+                                counterConfig.counter = node1.Text;
+                                counterConfig.instance = node1.Parent.Text;
+                                counterConfig.category = node1.Parent.Parent.Text;
+                                counterConfigs.Add(counterConfig);
+                            }
                         }
                     }
                 }   
@@ -243,14 +246,18 @@ namespace GraphiteClientGenerator
 
                 XmlAttribute attrInstance = xmlDoc.CreateAttribute("instance");
                 XmlAttribute attrKey = xmlDoc.CreateAttribute("key");
+                string counterKey = conf.counter.Replace('/', '_');
+                counterKey = counterKey.Replace(' ', '_');
+                string categoryKey = conf.category.Replace(' ', '_');
+                categoryKey = categoryKey.Replace('.', '-');
                 if (conf.instance == null)
                 {
                     attrInstance.Value = "";
-                    attrKey.Value = txtHostname.Text + "." + conf.category + "." + conf.counter;
+                    attrKey.Value = txtHostname.Text + "." + categoryKey + "." + counterKey;
                 } else
                 {
                     attrInstance.Value = conf.instance;
-                    attrKey.Value = txtHostname.Text + "." + conf.category + "." + conf.instance + "." + conf.counter;
+                    attrKey.Value = txtHostname.Text + "." + categoryKey + "." + conf.instance + "." + counterKey;
                 }
                 childnode.Attributes.Append(attrInstance);
                 childnode.Attributes.Append(attrKey);
