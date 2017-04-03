@@ -27,6 +27,7 @@ namespace GraphiteClientGenerator
             splitContainer1.Panel2MinSize = 131;
             // Set default choice in graphite transport option combobox
             cmbGraphiteTransport.SelectedIndex = 0;
+            this.AutoScaleMode = AutoScaleMode.Dpi;
         }
 
         private void LoadPerformanceCounters_Level1(string hostname)
@@ -238,6 +239,10 @@ namespace GraphiteClientGenerator
                 }   
             }
 
+            // Key Template
+            string keyTemplate = txtKeyTemplate.Text;
+            string keyTemplateFormatted = "";
+
             foreach (CounterConfig conf in counterConfigs)
             {
                 XmlNode childnode = xmlDoc.CreateElement("add", "http://github.com/peschuster/Graphite/Configuration");
@@ -251,14 +256,23 @@ namespace GraphiteClientGenerator
                 counterKey = counterKey.Replace(' ', '_');
                 string categoryKey = conf.category.Replace(' ', '_');
                 categoryKey = categoryKey.Replace('.', '-');
+
+                // Format pattern for key
+                keyTemplateFormatted = keyTemplate.Replace("$hostname", txtHostname.Text);
+                keyTemplateFormatted = keyTemplateFormatted.Replace("$category", categoryKey);
+                keyTemplateFormatted = keyTemplateFormatted.Replace("$counter", counterKey);
+
+                // If no instance?
                 if (conf.instance == null)
                 {
                     attrInstance.Value = "";
-                    attrKey.Value = txtHostname.Text + "." + categoryKey + "." + counterKey;
+                    keyTemplateFormatted = keyTemplateFormatted.Replace(".$instance", "");
+                    attrKey.Value = keyTemplateFormatted;
                 } else
                 {
                     attrInstance.Value = conf.instance;
-                    attrKey.Value = txtHostname.Text + "." + categoryKey + "." + conf.instance + "." + counterKey;
+                    keyTemplateFormatted = keyTemplateFormatted.Replace("$instance", conf.instance);
+                    attrKey.Value = keyTemplateFormatted;
                 }
                 childnode.Attributes.Append(attrInstance);
                 childnode.Attributes.Append(attrKey);

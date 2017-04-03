@@ -235,8 +235,7 @@
             // 
             // grpConfig
             // 
-            this.grpConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpConfig.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpConfig.Controls.Add(this.label2);
             this.grpConfig.Controls.Add(this.txtConfigPath);
@@ -245,7 +244,7 @@
             this.grpConfig.Margin = new System.Windows.Forms.Padding(4);
             this.grpConfig.Name = "grpConfig";
             this.grpConfig.Padding = new System.Windows.Forms.Padding(4);
-            this.grpConfig.Size = new System.Drawing.Size(399, 165);
+            this.grpConfig.Size = new System.Drawing.Size(389, 165);
             this.grpConfig.TabIndex = 0;
             this.grpConfig.TabStop = false;
             this.grpConfig.Text = "Config File";
@@ -268,14 +267,14 @@
             this.txtConfigPath.Location = new System.Drawing.Point(8, 98);
             this.txtConfigPath.Margin = new System.Windows.Forms.Padding(4);
             this.txtConfigPath.Name = "txtConfigPath";
-            this.txtConfigPath.Size = new System.Drawing.Size(382, 22);
+            this.txtConfigPath.Size = new System.Drawing.Size(372, 22);
             this.txtConfigPath.TabIndex = 1;
             this.txtConfigPath.Text = "C:\\Dan\\Temp";
             // 
             // btnSaveConfig
             // 
             this.btnSaveConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveConfig.Location = new System.Drawing.Point(291, 130);
+            this.btnSaveConfig.Location = new System.Drawing.Point(281, 130);
             this.btnSaveConfig.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveConfig.Name = "btnSaveConfig";
             this.btnSaveConfig.Size = new System.Drawing.Size(100, 28);
@@ -358,8 +357,7 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(1201, 807);
             this.Controls.Add(this.grpMain);
             this.Margin = new System.Windows.Forms.Padding(4);
