@@ -227,9 +227,9 @@ namespace GraphiteClientGenerator
                             if ((node2.Tag.ToString() == "counter") && (node2.Checked == true))
                             {
                                 CounterConfig counterConfig = new CounterConfig();
-                                counterConfig.counter = node1.Text;
-                                counterConfig.instance = node1.Parent.Text;
-                                counterConfig.category = node1.Parent.Parent.Text;
+                                counterConfig.counter = node2.Text;
+                                counterConfig.instance = node2.Parent.Text;
+                                counterConfig.category = node2.Parent.Parent.Text;
                                 counterConfigs.Add(counterConfig);
                             }
                         }
