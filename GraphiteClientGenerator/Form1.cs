@@ -219,11 +219,19 @@ namespace GraphiteClientGenerator
                             counterConfigs.Add(counterConfig);
                         }
                     }
-                }
-               
-                
-                    
-                
+                    if (node1.Nodes.Count > 0)
+                    {
+                        // Children of instance - counter
+                        foreach (TreeNode node2 in node1.Nodes)
+                        {
+                            CounterConfig counterConfig = new CounterConfig();
+                            counterConfig.counter = node1.Text;
+                            counterConfig.instance = node1.Parent.Text;
+                            counterConfig.category = node1.Parent.Parent.Text;
+                            counterConfigs.Add(counterConfig);
+                        }
+                    }
+                }   
             }
 
             foreach (CounterConfig conf in counterConfigs)
