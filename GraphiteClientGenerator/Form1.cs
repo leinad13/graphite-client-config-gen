@@ -126,6 +126,7 @@ namespace GraphiteClientGenerator
             }
         }
 
+        // Save options
         private void btnSaveConfig_Click(object sender, EventArgs e)
         {
             string output_config_address;
@@ -282,8 +283,16 @@ namespace GraphiteClientGenerator
             maingraphite_system.AppendChild(counters);
             rootnode.AppendChild(maingraphite_system);
 
-            // Save Out XML
-            xmlDoc.Save(output_config_path);
+            try
+            {
+                // Save Out XML
+                xmlDoc.Save(output_config_path);
+                MessageBox.Show("Successfully saved file to " + output_config_path, "Success", MessageBoxButtons.OK);
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error saving file");
+            }
+            
 
         }
 
