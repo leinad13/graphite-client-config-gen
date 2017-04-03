@@ -29,87 +29,6 @@ namespace GraphiteClientGenerator
             cmbGraphiteTransport.SelectedIndex = 0;
         }
 
-        private void LoadPerformanceCounters(string hostname)
-        {
-            // Check Host is alive / online
-            try
-            {
-                // Get IP Address of System
-                System.Net.IPAddress address = System.Net.Dns.GetHostEntry(hostname).AddressList.First();
-
-                // Ping Object
-                Ping ping = new Ping();
-                // Ping buffer - 32 byte buffer (create empty)
-                byte[] buffer = new byte[32];
-                // Ping Options
-                PingOptions pingOptions = new PingOptions(128, true);
-
-                // Ping Host 4 times
-                for (int i = 0; i < 4; i++)
-                {
-                    // PingReply Object
-                    PingReply pingReply = ping.Send(address, 1000, buffer, pingOptions);
-                    //make sure we dont have a null reply
-                    if (!(pingReply == null))
-                    {
-                        switch (pingReply.Status)
-                        {
-                            case IPStatus.Success:
-                                break;
-                            case IPStatus.TimedOut:
-                                throw new PingException("Timed Out");
-                            default:
-                                throw new PingException("Ping Failed");
-                        }
-                    }
-                }        
-            }
-            catch (PingException ex)
-            {
-                MessageBox.Show(ex.Message, "Problem Connecting to "+hostname,MessageBoxButtons.OK);
-                return;
-            }
-
-            // Get Hostname to use for root tree node
-            TreeNode rootnode = new TreeNode(hostname);
-
-            // Get Performance Counter Categories
-            List<PerformanceCounterCategory> categories = PerformanceCounterCategory.GetCategories(hostname).OrderBy(category => category.CategoryName).ToList();
-
-            foreach (PerformanceCounterCategory cat in categories)
-            {
-                TreeNode node = new TreeNode(cat.CategoryName);
-                try
-                {
-                    // Get Perf Counter Instance
-                    string[] instances = cat.GetInstanceNames();
-                    foreach (string instance in instances)
-                    {
-                        TreeNode n = new TreeNode(instance);
-
-                        // Get Perf Counter Name
-                        PerformanceCounter[] perfs = cat.GetCounters(instance);
-                        foreach (PerformanceCounter perf in perfs)
-                        {
-                            TreeNode counternode = new TreeNode(perf.CounterName);
-                            n.Nodes.Add(counternode);
-                        }
-
-                        node.Nodes.Add(n);
-                    }
-                } catch (Exception ex)
-                {
-                    // Some Performance Counters throw an error when trying to enumerate instances, this captures and suppresses it
-                }
-                PerformanceCounter[] counters = cat.GetCounters("");
-                rootnode.Nodes.Add(node);
-            }
-
-            // Add Nodes to TreeView
-            trvPerfs.Nodes.Add(rootnode);
-            trvPerfs.Nodes[0].SetIsCheckBoxVisible(false);
-        }
-
         private void LoadPerformanceCounters_Level1(string hostname)
         {
             // Check Host is alive / online
@@ -170,6 +89,10 @@ namespace GraphiteClientGenerator
             // Add Nodes to TreeView
             trvPerfs.Nodes.Add(rootnode);
             trvPerfs.Nodes[0].SetIsCheckBoxVisible(false);
+            foreach(TreeNode n in trvPerfs.Nodes[0].Nodes)
+            {
+                n.SetIsCheckBoxVisible(false);
+            }
         }
  
         private void button1_Click(object sender, EventArgs e)
@@ -185,7 +108,6 @@ namespace GraphiteClientGenerator
                 if (e.Node.Nodes.Count > 0)
                 {
                     this.CheckAllChildNodes(e.Node, e.Node.Checked);
-                    this.SelectParents(e.Node, e.Node.Checked);
                 }
             }
         }
@@ -201,26 +123,6 @@ namespace GraphiteClientGenerator
                     // If the current node has child nodes, call the CheckAllChildsNodes method recursively.
                     this.CheckAllChildNodes(node, nodeChecked);
                 }
-            }
-        }
-
-        // Updates all parent tree nodes
-        private void SelectParents(TreeNode treeNode, bool isChecked)
-        {
-            var parent = treeNode.Parent;
-
-            if (parent == null)
-                return;
-            if (isChecked)
-            {
-                parent.Checked = true;
-                SelectParents(parent, true);
-            }
-            else
-            {
-                if (parent.Nodes.Cast<TreeNode>().Any(n => n.Checked))
-                    return; // do not uncheck parent if there are other checked nodes
-                SelectParents(parent, false);
             }
         }
 
@@ -373,12 +275,31 @@ namespace GraphiteClientGenerator
 
             // Remove Existing nodes
             e.Node.Nodes.Clear();
-
-            foreach (string instance in cat.GetInstanceNames())
+            string[] instances = cat.GetInstanceNames();
+            
+            if (instances.Length > 0)
             {
-                TreeNode instanceNode = new TreeNode(instance);
-                e.Node.Nodes.Add(instanceNode);
+                foreach (string instance in cat.GetInstanceNames())
+                {
+                    TreeNode instanceNode = new TreeNode(instance);
+                    // Get Counters per instance
+                    foreach (PerformanceCounter counter in cat.GetCounters(instance))
+                    {
+                        TreeNode counterNode = new TreeNode(counter.CounterName);
+                        instanceNode.Nodes.Add(counterNode);
+                    }
+
+                    e.Node.Nodes.Add(instanceNode);
+                }
+            } else
+            {
+                foreach (PerformanceCounter counter in cat.GetCounters())
+                {
+                    TreeNode counterNode = new TreeNode(counter.CounterName);
+                    e.Node.Nodes.Add(counterNode);
+                }
             }
+            
             
         }
     }
