@@ -199,20 +199,70 @@ namespace GraphiteClientGenerator
             XmlNode clear = xmlDoc.CreateElement("clear","http://github.com/peschuster/Graphite/Configuration");
             counters.AppendChild(clear);
 
-            List<TreeNode> nodes = new List<TreeNode>();
+            List<CounterConfig> counterConfigs = new List<CounterConfig>();
 
-            foreach (TreeNode node in trvPerfs.Nodes)
+            // Children of 'hostname' - category
+            foreach (TreeNode node0 in trvPerfs.Nodes[0].Nodes)
             {
-                if (node.Checked)
+                // Children of category - instance OR counter
+                foreach (TreeNode node1 in node0.Nodes)
                 {
-                    nodes.Add(node);
-                    XmlNode childnode = xmlDoc.CreateElement("add", "http://github.com/peschuster/Graphite/Configuration");
-                    XmlAttribute attr = xmlDoc.CreateAttribute("key");
-                    attr.Value = node.Text;
-                    childnode.Attributes.Append(attr);
-                    counters.AppendChild(childnode);
+                    // Is counter? (no instance)
+                    if ((node1.Tag != null) && (node1.Tag.ToString() == "counter"))
+                    {
+                        // Is checked?
+                        if (node1.Checked == true)
+                        {
+                            CounterConfig counterConfig = new CounterConfig();
+                            counterConfig.counter = node1.Text;
+                            counterConfig.category = node1.Parent.Text;
+                            counterConfigs.Add(counterConfig);
+                        }
+                    }
                 }
+               
+                
+                    
+                
             }
+
+            foreach (CounterConfig conf in counterConfigs)
+            {
+                XmlNode childnode = xmlDoc.CreateElement("add", "http://github.com/peschuster/Graphite/Configuration");
+                XmlAttribute attrCounter = xmlDoc.CreateAttribute("counter");
+                attrCounter.Value = conf.counter;
+                childnode.Attributes.Append(attrCounter);
+
+                XmlAttribute attrInstance = xmlDoc.CreateAttribute("instance");
+                XmlAttribute attrKey = xmlDoc.CreateAttribute("key");
+                if (conf.instance == null)
+                {
+                    attrInstance.Value = "";
+                    attrKey.Value = txtHostname.Text + "." + conf.category + "." + conf.counter;
+                } else
+                {
+                    attrInstance.Value = conf.instance;
+                    attrKey.Value = txtHostname.Text + "." + conf.category + "." + conf.instance + "." + conf.counter;
+                }
+                childnode.Attributes.Append(attrInstance);
+                childnode.Attributes.Append(attrKey);
+                XmlAttribute attrCategory = xmlDoc.CreateAttribute("category");
+                attrCategory.Value = conf.category;
+                childnode.Attributes.Append(attrCategory);
+
+                XmlAttribute attrType = xmlDoc.CreateAttribute("type");
+                XmlAttribute attrTarget = xmlDoc.CreateAttribute("target");
+                XmlAttribute attrInterval = xmlDoc.CreateAttribute("interval");
+                attrType.Value = "guage";
+                attrTarget.Value = "graphite";
+                attrInterval.Value = txtDefaultInterval.Text;
+                childnode.Attributes.Append(attrType);
+                childnode.Attributes.Append(attrTarget);
+                childnode.Attributes.Append(attrInterval);
+
+                counters.AppendChild(childnode);
+            }
+            
 
             maingraphite_system.AppendChild(counters);
             rootnode.AppendChild(maingraphite_system);
@@ -297,6 +347,7 @@ namespace GraphiteClientGenerator
                     foreach (PerformanceCounter counter in cat.GetCounters(instance))
                     {
                         TreeNode counterNode = new TreeNode(counter.CounterName);
+                        counterNode.Tag = "counter";
                         instanceNode.Nodes.Add(counterNode);
                     }
 
@@ -307,6 +358,7 @@ namespace GraphiteClientGenerator
                 foreach (PerformanceCounter counter in cat.GetCounters())
                 {
                     TreeNode counterNode = new TreeNode(counter.CounterName);
+                    counterNode.Tag = "counter";
                     e.Node.Nodes.Add(counterNode);
                 }
             }
