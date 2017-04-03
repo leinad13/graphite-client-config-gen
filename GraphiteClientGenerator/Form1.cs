@@ -231,6 +231,17 @@ namespace GraphiteClientGenerator
             {
                 return;
             }
+            if (node.Nodes.Count != 1)
+            {
+                if (node.Nodes[0].Text != "dummy")
+                {
+                    // Dont load again if already loaded
+                    return;
+                }
+            } else if (node.Nodes[0].Text != "dummy")
+            {
+                return;
+            }
 
             try
             {
