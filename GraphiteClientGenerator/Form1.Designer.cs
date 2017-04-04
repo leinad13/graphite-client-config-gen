@@ -31,6 +31,10 @@
             this.grpMain = new System.Windows.Forms.GroupBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.trvPerfs = new System.Windows.Forms.TreeView();
+            this.grpKeyTemplate = new System.Windows.Forms.GroupBox();
+            this.txtKeyTemplate = new System.Windows.Forms.TextBox();
+            this.lblKeyTemplateExpl = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtDefaultInterval = new System.Windows.Forms.TextBox();
@@ -48,19 +52,15 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtHostname = new System.Windows.Forms.TextBox();
-            this.grpKeyTemplate = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.lblKeyTemplateExpl = new System.Windows.Forms.Label();
-            this.txtKeyTemplate = new System.Windows.Forms.TextBox();
             this.grpMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.grpKeyTemplate.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.grpGraphiteConfig.SuspendLayout();
             this.grpConfig.SuspendLayout();
-            this.grpKeyTemplate.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpMain
@@ -119,6 +119,48 @@
             this.trvPerfs.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.trvPerfs_AfterCheck);
             this.trvPerfs.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.trvPerfs_AfterExpand);
             // 
+            // grpKeyTemplate
+            // 
+            this.grpKeyTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpKeyTemplate.Controls.Add(this.txtKeyTemplate);
+            this.grpKeyTemplate.Controls.Add(this.lblKeyTemplateExpl);
+            this.grpKeyTemplate.Controls.Add(this.label7);
+            this.grpKeyTemplate.Location = new System.Drawing.Point(4, 313);
+            this.grpKeyTemplate.Name = "grpKeyTemplate";
+            this.grpKeyTemplate.Size = new System.Drawing.Size(398, 197);
+            this.grpKeyTemplate.TabIndex = 3;
+            this.grpKeyTemplate.TabStop = false;
+            this.grpKeyTemplate.Text = "Key Template";
+            // 
+            // txtKeyTemplate
+            // 
+            this.txtKeyTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtKeyTemplate.Location = new System.Drawing.Point(12, 157);
+            this.txtKeyTemplate.Name = "txtKeyTemplate";
+            this.txtKeyTemplate.Size = new System.Drawing.Size(376, 20);
+            this.txtKeyTemplate.TabIndex = 2;
+            this.txtKeyTemplate.Text = "$hostname.$category.$instance.$counter";
+            // 
+            // lblKeyTemplateExpl
+            // 
+            this.lblKeyTemplateExpl.Location = new System.Drawing.Point(10, 59);
+            this.lblKeyTemplateExpl.Name = "lblKeyTemplateExpl";
+            this.lblKeyTemplateExpl.Size = new System.Drawing.Size(383, 95);
+            this.lblKeyTemplateExpl.TabIndex = 1;
+            this.lblKeyTemplateExpl.Text = "Possible fields :\r\n$hostname\r\n$category\r\n$instance\r\n$counter";
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.Location = new System.Drawing.Point(10, 28);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(378, 31);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Use this to specify the pattern used for the field \'key\'";
+            // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -129,7 +171,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(399, 88);
+            this.groupBox1.Size = new System.Drawing.Size(398, 88);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "General Config";
@@ -140,7 +182,7 @@
             this.label5.Location = new System.Drawing.Point(9, 33);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(109, 17);
+            this.label5.Size = new System.Drawing.Size(82, 13);
             this.label5.TabIndex = 4;
             this.label5.Text = "default interval :";
             // 
@@ -149,7 +191,7 @@
             this.txtDefaultInterval.Location = new System.Drawing.Point(13, 53);
             this.txtDefaultInterval.Margin = new System.Windows.Forms.Padding(4);
             this.txtDefaultInterval.Name = "txtDefaultInterval";
-            this.txtDefaultInterval.Size = new System.Drawing.Size(141, 22);
+            this.txtDefaultInterval.Size = new System.Drawing.Size(141, 20);
             this.txtDefaultInterval.TabIndex = 4;
             this.txtDefaultInterval.Text = "10";
             // 
@@ -167,7 +209,7 @@
             this.grpGraphiteConfig.Margin = new System.Windows.Forms.Padding(4);
             this.grpGraphiteConfig.Name = "grpGraphiteConfig";
             this.grpGraphiteConfig.Padding = new System.Windows.Forms.Padding(4);
-            this.grpGraphiteConfig.Size = new System.Drawing.Size(399, 191);
+            this.grpGraphiteConfig.Size = new System.Drawing.Size(398, 191);
             this.grpGraphiteConfig.TabIndex = 1;
             this.grpGraphiteConfig.TabStop = false;
             this.grpGraphiteConfig.Text = "Graphite Config";
@@ -181,7 +223,7 @@
             this.cmbGraphiteTransport.Location = new System.Drawing.Point(13, 160);
             this.cmbGraphiteTransport.Margin = new System.Windows.Forms.Padding(4);
             this.cmbGraphiteTransport.Name = "cmbGraphiteTransport";
-            this.cmbGraphiteTransport.Size = new System.Drawing.Size(141, 24);
+            this.cmbGraphiteTransport.Size = new System.Drawing.Size(141, 21);
             this.cmbGraphiteTransport.TabIndex = 5;
             // 
             // label6
@@ -190,7 +232,7 @@
             this.label6.Location = new System.Drawing.Point(9, 139);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(73, 17);
+            this.label6.Size = new System.Drawing.Size(54, 13);
             this.label6.TabIndex = 4;
             this.label6.Text = "transport :";
             // 
@@ -199,7 +241,7 @@
             this.txtGraphitePort.Location = new System.Drawing.Point(13, 101);
             this.txtGraphitePort.Margin = new System.Windows.Forms.Padding(4);
             this.txtGraphitePort.Name = "txtGraphitePort";
-            this.txtGraphitePort.Size = new System.Drawing.Size(141, 22);
+            this.txtGraphitePort.Size = new System.Drawing.Size(141, 20);
             this.txtGraphitePort.TabIndex = 3;
             this.txtGraphitePort.Text = "2003";
             // 
@@ -210,7 +252,7 @@
             this.txtGraphiteAddress.Location = new System.Drawing.Point(13, 46);
             this.txtGraphiteAddress.Margin = new System.Windows.Forms.Padding(4);
             this.txtGraphiteAddress.Name = "txtGraphiteAddress";
-            this.txtGraphiteAddress.Size = new System.Drawing.Size(376, 22);
+            this.txtGraphiteAddress.Size = new System.Drawing.Size(375, 20);
             this.txtGraphiteAddress.TabIndex = 2;
             // 
             // label4
@@ -219,7 +261,7 @@
             this.label4.Location = new System.Drawing.Point(9, 81);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 17);
+            this.label4.Size = new System.Drawing.Size(31, 13);
             this.label4.TabIndex = 1;
             this.label4.Text = "port :";
             // 
@@ -229,22 +271,22 @@
             this.label3.Location = new System.Drawing.Point(9, 25);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 17);
+            this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 0;
             this.label3.Text = "address :";
             // 
             // grpConfig
             // 
-            this.grpConfig.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpConfig.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpConfig.Controls.Add(this.label2);
             this.grpConfig.Controls.Add(this.txtConfigPath);
             this.grpConfig.Controls.Add(this.btnSaveConfig);
-            this.grpConfig.Location = new System.Drawing.Point(4, 545);
+            this.grpConfig.Location = new System.Drawing.Point(4, 588);
             this.grpConfig.Margin = new System.Windows.Forms.Padding(4);
             this.grpConfig.Name = "grpConfig";
             this.grpConfig.Padding = new System.Windows.Forms.Padding(4);
-            this.grpConfig.Size = new System.Drawing.Size(389, 165);
+            this.grpConfig.Size = new System.Drawing.Size(388, 122);
             this.grpConfig.TabIndex = 0;
             this.grpConfig.TabStop = false;
             this.grpConfig.Text = "Config File";
@@ -253,10 +295,10 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 75);
+            this.label2.Location = new System.Drawing.Point(9, 32);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(115, 17);
+            this.label2.Size = new System.Drawing.Size(87, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Config File Path :";
             // 
@@ -264,17 +306,17 @@
             // 
             this.txtConfigPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtConfigPath.Location = new System.Drawing.Point(8, 98);
+            this.txtConfigPath.Location = new System.Drawing.Point(8, 55);
             this.txtConfigPath.Margin = new System.Windows.Forms.Padding(4);
             this.txtConfigPath.Name = "txtConfigPath";
-            this.txtConfigPath.Size = new System.Drawing.Size(372, 22);
+            this.txtConfigPath.Size = new System.Drawing.Size(371, 20);
             this.txtConfigPath.TabIndex = 1;
             this.txtConfigPath.Text = "C:\\Dan\\Temp";
             // 
             // btnSaveConfig
             // 
             this.btnSaveConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveConfig.Location = new System.Drawing.Point(281, 130);
+            this.btnSaveConfig.Location = new System.Drawing.Point(280, 87);
             this.btnSaveConfig.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveConfig.Name = "btnSaveConfig";
             this.btnSaveConfig.Size = new System.Drawing.Size(100, 28);
@@ -300,7 +342,7 @@
             this.label1.Location = new System.Drawing.Point(8, 27);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 17);
+            this.label1.Size = new System.Drawing.Size(61, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Hostname :";
             // 
@@ -309,51 +351,9 @@
             this.txtHostname.Location = new System.Drawing.Point(89, 23);
             this.txtHostname.Margin = new System.Windows.Forms.Padding(4);
             this.txtHostname.Name = "txtHostname";
-            this.txtHostname.Size = new System.Drawing.Size(208, 22);
+            this.txtHostname.Size = new System.Drawing.Size(208, 20);
             this.txtHostname.TabIndex = 1;
             this.txtHostname.Text = "localhost";
-            // 
-            // grpKeyTemplate
-            // 
-            this.grpKeyTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpKeyTemplate.Controls.Add(this.txtKeyTemplate);
-            this.grpKeyTemplate.Controls.Add(this.lblKeyTemplateExpl);
-            this.grpKeyTemplate.Controls.Add(this.label7);
-            this.grpKeyTemplate.Location = new System.Drawing.Point(4, 313);
-            this.grpKeyTemplate.Name = "grpKeyTemplate";
-            this.grpKeyTemplate.Size = new System.Drawing.Size(399, 197);
-            this.grpKeyTemplate.TabIndex = 3;
-            this.grpKeyTemplate.TabStop = false;
-            this.grpKeyTemplate.Text = "Key Template";
-            // 
-            // label7
-            // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label7.Location = new System.Drawing.Point(10, 28);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(379, 31);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Use this to specify the pattern used for the field \'key\'";
-            // 
-            // lblKeyTemplateExpl
-            // 
-            this.lblKeyTemplateExpl.Location = new System.Drawing.Point(10, 59);
-            this.lblKeyTemplateExpl.Name = "lblKeyTemplateExpl";
-            this.lblKeyTemplateExpl.Size = new System.Drawing.Size(383, 95);
-            this.lblKeyTemplateExpl.TabIndex = 1;
-            this.lblKeyTemplateExpl.Text = "Possible fields :\r\n$hostname\r\n$category\r\n$instance\r\n$counter";
-            // 
-            // txtKeyTemplate
-            // 
-            this.txtKeyTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtKeyTemplate.Location = new System.Drawing.Point(12, 157);
-            this.txtKeyTemplate.Name = "txtKeyTemplate";
-            this.txtKeyTemplate.Size = new System.Drawing.Size(377, 22);
-            this.txtKeyTemplate.TabIndex = 2;
-            this.txtKeyTemplate.Text = "$hostname.$category.$instance.$counter";
             // 
             // Form1
             // 
@@ -370,14 +370,14 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.grpKeyTemplate.ResumeLayout(false);
+            this.grpKeyTemplate.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.grpGraphiteConfig.ResumeLayout(false);
             this.grpGraphiteConfig.PerformLayout();
             this.grpConfig.ResumeLayout(false);
             this.grpConfig.PerformLayout();
-            this.grpKeyTemplate.ResumeLayout(false);
-            this.grpKeyTemplate.PerformLayout();
             this.ResumeLayout(false);
 
         }
