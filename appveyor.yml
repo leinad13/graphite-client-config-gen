@@ -8,3 +8,7 @@ platform:
 
 configuration:
   - Release
+
+artifacts:
+  - path: bin\Release\GraphiteClientGenerator.exe
+    name: Release
