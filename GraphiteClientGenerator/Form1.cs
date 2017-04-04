@@ -283,7 +283,7 @@ namespace GraphiteClientGenerator
                 XmlAttribute attrType = xmlDoc.CreateAttribute("type");
                 XmlAttribute attrTarget = xmlDoc.CreateAttribute("target");
                 XmlAttribute attrInterval = xmlDoc.CreateAttribute("interval");
-                attrType.Value = "guage";
+                attrType.Value = "gauge";
                 attrTarget.Value = "graphite";
                 attrInterval.Value = txtDefaultInterval.Text;
                 childnode.Attributes.Append(attrType);
