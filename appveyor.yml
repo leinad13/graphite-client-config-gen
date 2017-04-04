@@ -1,3 +1,14 @@
 version: 1.0.{build}
 build:
   verbosity: normal
+
+platform:
+  - x86
+  - Any CPU
+
+configuration:
+  - Release
+
+artifacts:
+  - path: bin\Release\GraphiteClientGenerator.exe
+    name: Release
