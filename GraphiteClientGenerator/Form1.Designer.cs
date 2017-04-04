@@ -76,7 +76,7 @@
             this.grpMain.Margin = new System.Windows.Forms.Padding(4);
             this.grpMain.Name = "grpMain";
             this.grpMain.Padding = new System.Windows.Forms.Padding(4);
-            this.grpMain.Size = new System.Drawing.Size(1169, 778);
+            this.grpMain.Size = new System.Drawing.Size(875, 711);
             this.grpMain.TabIndex = 0;
             this.grpMain.TabStop = false;
             this.grpMain.Text = "MainConfig";
@@ -100,8 +100,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel2.Controls.Add(this.grpGraphiteConfig);
             this.splitContainer1.Panel2.Controls.Add(this.grpConfig);
-            this.splitContainer1.Size = new System.Drawing.Size(1153, 714);
-            this.splitContainer1.SplitterDistance = 740;
+            this.splitContainer1.Size = new System.Drawing.Size(859, 647);
+            this.splitContainer1.SplitterDistance = 551;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 4;
             // 
@@ -114,7 +114,7 @@
             this.trvPerfs.Location = new System.Drawing.Point(4, 4);
             this.trvPerfs.Margin = new System.Windows.Forms.Padding(4);
             this.trvPerfs.Name = "trvPerfs";
-            this.trvPerfs.Size = new System.Drawing.Size(731, 705);
+            this.trvPerfs.Size = new System.Drawing.Size(542, 638);
             this.trvPerfs.TabIndex = 0;
             this.trvPerfs.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.trvPerfs_AfterCheck);
             this.trvPerfs.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.trvPerfs_AfterExpand);
@@ -128,7 +128,7 @@
             this.grpKeyTemplate.Controls.Add(this.label7);
             this.grpKeyTemplate.Location = new System.Drawing.Point(4, 313);
             this.grpKeyTemplate.Name = "grpKeyTemplate";
-            this.grpKeyTemplate.Size = new System.Drawing.Size(398, 197);
+            this.grpKeyTemplate.Size = new System.Drawing.Size(292, 197);
             this.grpKeyTemplate.TabIndex = 3;
             this.grpKeyTemplate.TabStop = false;
             this.grpKeyTemplate.Text = "Key Template";
@@ -139,7 +139,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtKeyTemplate.Location = new System.Drawing.Point(12, 157);
             this.txtKeyTemplate.Name = "txtKeyTemplate";
-            this.txtKeyTemplate.Size = new System.Drawing.Size(376, 20);
+            this.txtKeyTemplate.Size = new System.Drawing.Size(270, 20);
             this.txtKeyTemplate.TabIndex = 2;
             this.txtKeyTemplate.Text = "$hostname.$category.$instance.$counter";
             // 
@@ -157,7 +157,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.Location = new System.Drawing.Point(10, 28);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(378, 31);
+            this.label7.Size = new System.Drawing.Size(272, 31);
             this.label7.TabIndex = 0;
             this.label7.Text = "Use this to specify the pattern used for the field \'key\'";
             // 
@@ -171,7 +171,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(398, 88);
+            this.groupBox1.Size = new System.Drawing.Size(292, 88);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "General Config";
@@ -209,7 +209,7 @@
             this.grpGraphiteConfig.Margin = new System.Windows.Forms.Padding(4);
             this.grpGraphiteConfig.Name = "grpGraphiteConfig";
             this.grpGraphiteConfig.Padding = new System.Windows.Forms.Padding(4);
-            this.grpGraphiteConfig.Size = new System.Drawing.Size(398, 191);
+            this.grpGraphiteConfig.Size = new System.Drawing.Size(292, 191);
             this.grpGraphiteConfig.TabIndex = 1;
             this.grpGraphiteConfig.TabStop = false;
             this.grpGraphiteConfig.Text = "Graphite Config";
@@ -218,8 +218,8 @@
             // 
             this.cmbGraphiteTransport.FormattingEnabled = true;
             this.cmbGraphiteTransport.Items.AddRange(new object[] {
-            "tcp",
-            "udp"});
+            "Tcp",
+            "Udp"});
             this.cmbGraphiteTransport.Location = new System.Drawing.Point(13, 160);
             this.cmbGraphiteTransport.Margin = new System.Windows.Forms.Padding(4);
             this.cmbGraphiteTransport.Name = "cmbGraphiteTransport";
@@ -252,7 +252,7 @@
             this.txtGraphiteAddress.Location = new System.Drawing.Point(13, 46);
             this.txtGraphiteAddress.Margin = new System.Windows.Forms.Padding(4);
             this.txtGraphiteAddress.Name = "txtGraphiteAddress";
-            this.txtGraphiteAddress.Size = new System.Drawing.Size(375, 20);
+            this.txtGraphiteAddress.Size = new System.Drawing.Size(269, 20);
             this.txtGraphiteAddress.TabIndex = 2;
             // 
             // label4
@@ -282,11 +282,11 @@
             this.grpConfig.Controls.Add(this.label2);
             this.grpConfig.Controls.Add(this.txtConfigPath);
             this.grpConfig.Controls.Add(this.btnSaveConfig);
-            this.grpConfig.Location = new System.Drawing.Point(4, 588);
+            this.grpConfig.Location = new System.Drawing.Point(4, 521);
             this.grpConfig.Margin = new System.Windows.Forms.Padding(4);
             this.grpConfig.Name = "grpConfig";
             this.grpConfig.Padding = new System.Windows.Forms.Padding(4);
-            this.grpConfig.Size = new System.Drawing.Size(388, 122);
+            this.grpConfig.Size = new System.Drawing.Size(292, 122);
             this.grpConfig.TabIndex = 0;
             this.grpConfig.TabStop = false;
             this.grpConfig.Text = "Config File";
@@ -309,14 +309,14 @@
             this.txtConfigPath.Location = new System.Drawing.Point(8, 55);
             this.txtConfigPath.Margin = new System.Windows.Forms.Padding(4);
             this.txtConfigPath.Name = "txtConfigPath";
-            this.txtConfigPath.Size = new System.Drawing.Size(371, 20);
+            this.txtConfigPath.Size = new System.Drawing.Size(275, 20);
             this.txtConfigPath.TabIndex = 1;
             this.txtConfigPath.Text = "C:\\Dan\\Temp";
             // 
             // btnSaveConfig
             // 
             this.btnSaveConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveConfig.Location = new System.Drawing.Point(280, 87);
+            this.btnSaveConfig.Location = new System.Drawing.Point(184, 87);
             this.btnSaveConfig.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveConfig.Name = "btnSaveConfig";
             this.btnSaveConfig.Size = new System.Drawing.Size(100, 28);
@@ -358,7 +358,7 @@
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.ClientSize = new System.Drawing.Size(1201, 807);
+            this.ClientSize = new System.Drawing.Size(907, 740);
             this.Controls.Add(this.grpMain);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
