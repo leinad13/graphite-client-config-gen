@@ -10,5 +10,13 @@ configuration:
   - Release
 
 artifacts:
-  - path: bin\Release\GraphiteClientGenerator.exe
+  - path: GraphiteClientGenerator\bin\Release\GraphiteClientGenerator.exe
     name: Release
+
+deploy:
+  - provider: GitHub
+    artifact: Release
+    auth_token:
+      secure: EASr2nhRTqMf+jagPdEmWTlzrquvXFGYMpHF3DmylVEkdPmI+fbnRWbM26pGSZO2
+    on:
+      branch: master
